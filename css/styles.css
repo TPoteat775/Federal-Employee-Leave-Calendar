@@ -1,68 +1,191 @@
-table {
-    text-align: center;
-    table-layout: fixed;
-    width: 550px;
-    height: 350px;
+/* Colors: #F3EBE9 Chamoisee, #B4876A Raisin Black, #212227 Isabelline*/
+
+#heading {
+    width: 100%;
+    height: 30px;
+    justify-content: center;
+}
+  
+#h2-title  {
+    padding-right: 40px;
+    font-size: 40px;
+    font-family:'Times New Roman', Times, serif Tahoma, Geneva, Verdana, serif;
+}
+  
+input {
+    padding-left: .5px;
+}
+  
+#main {
+    padding-top: 30px;
+}
+  
+#week-container {
+    display: flex;
+    padding-left: 10px;
+    justify-content: center;
+    width: 100%;
+}
+  
+body {
+    display: flex;
+    margin-top: 50px;
+    justify-content: center;
+    background-color: #F3EBE9;
+}
+    
+#header2 {
+    display: flex;
+    font-size: 26px;
+    font-family:'Georgia', Tahoma, Geneva, Verdana, serif;
+    padding-top: 60px;
+    color:#212227;
+    justify-content: space-between;
+}
+ 
+  /*
+  padding-top: 40px;
+  color:#212227;
+  font-family:'Georgia', Tahoma, Geneva, Verdana, serif;
+  font-size: 26px;
+  display: flex;
+  justify-content: center;
+  */
+  
+.padding {
+    cursor: default !important;
+    background-color: #FFFCFF !important;
+    box-shadow: none !important;
+  }
+
+#header2 button {
+    background-color: #B4876A;
+}
+    
+#container {
+  
 }
 
-th {
-    height: 40px;
+#calendar {
+    width: 1000px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+    
+.day {
+    width: 140px;
+    padding: 10px;
+    height: 110px;
+    cursor: pointer;
+    box-sizing: border-box;
+    border: 1px solid #212227;
+    font-family:'Georgia', Tahoma, Geneva, Verdana, serif;
+    box-shadow: 0px 0px 3px #CBD4C2;
+    display: flex;
+    flex-direction: column;
+}
+
+.daysOfTheWeek {
+    width: 140px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    text-align: center; 
+}
+    
+.day:hover, .day + #currentDay:hover {
+    background-color: #ffebb6;
+}
+    
+    
+.day + #currentDay {
+    background-color:#f7ece0;
+}
+  
+  
+.event {
+    font-size: 10px;
+    padding: 3px;
+    background-color: #58bae4;
+    color: white;
+    border-radius: 5px;
+    max-height: 55px;
+    overflow: hidden;
+}
+    
+.padding {
+    cursor: default !important;
+    background-color: #ece5df !important;
+    box-shadow: none !important;
+}
+  
+#create-leave-entry, #delete-leave-entry {
+    display: none;
+    background-color: #F3EBE9;
+    padding: 20px;
+    color: black;
+    position: absolute;
+    top: 100px;
+    z-index: 20;
+}
+
+input {
+    margin-top: 5px;
+    justify-content: center ;
+
+}
+
+#btn-group {
+    margin-top: 10px;
+}
+
+#btn-group button {
+    background-color: #B4876A;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
 }
 
 button {
-    display: inline-block;
+    background-color: #B4876A;
     border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
     text-decoration: none;
-    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    transition-duration: 0.4s;
 }
 
-button:hover {
-    background-color: #ffc45e;
-    color: white;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+#btn-group button:hover {
+    background-color: #805f4a;
 }
 
-.center {
-    position: relative;
-    top: 300px;
-    margin-left: auto;
-    margin-right: auto;
+#leave-label {
+    margin-top: 10px;
+    display: flex;
+
 }
 
-.date h3 {
-    position: relative;
-    top: 300px;
-    font-size: 50px;
-    align-items: center;
-    text-align: center;
-    color: black;
+select {
+    margin-top: 10px;
 }
 
-.date tr {
-    background-color: #ffc45e;
-}
-
-#payday{
-    background-color: greenyellow;
-}
-
-#payday button:hover {
-    background-color: #95ff78;
-    color: white;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}
-
-.day{
-    position: relative;
-    align-items: center;
-}
-
-.slidecontainer{
+#backdrop {
+    display: none;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
     position: absolute;
-    box-sizing: content-box;
+    background-color: rgba(0,0,0,0.8);
 }
