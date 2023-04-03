@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Federal Leave Calendar</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="css/styles.css">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    
+    <body>
+        <div id="container">
+            <header>
+                <div id="heading">
+                    <h2 style="display: inline;" id="h2-title">Federal Leave Calendar</h2>
+                        <label for="annual-leave">Annual Leave:</label>
+                        <input type="number" id="annual-leave" name="annual-leave" min="0" max="999">
+    
+                        <label for="sick-leave">Sick Leave:</label>
+                        <input type="number" id="sick-leave" name="sick-leave" min="0" max="999">
+    
+                        <label for="credit-hrs">Credit Hours:</label>
+                        <input type="number" id="credit-hrs" name="credit-hrs" min="0" max="999">
+    
+                        <label for="comp-hrs">Comp Hours:</label>
+                        <input type="number" id="comp-hrs" name="comp-hrs" min="0" max="999">
+                </div>
+            </header>
+
+            <div id="header2">
+                <button id="backButton">&#10094;</button>
+                <div id="monthDisplay"></div>
+                <button id="nextButton">&#10095;</button>
+            </div>
+            <div id="calendar"></div>
+        </div>
+
+        <div id="create-leave-entry">
+            <h2 style="display: inline;">New Leave Record</h2>
+            <div id="leave-entry">
+                <label for="leave-type" id="leave-label">Leave Type:</label>
+                <select id="leave-type">
+                    <option value="sick">Sick</option>
+                    <option value="sick">Annual</option>
+                    <option value="sick">Credit Hours</option>
+                    <option value="sick">Comp Hours</option>
+                </select>
+
+                <label for="leave-type" id="leave-label">Duration:</label>
+                <input type="date" id="date" aria-describedby="date-format" min="2021-03-01" max="2031-01-01" /> -
+                <input type="date" id="date" aria-describedby="date-format" min="2021-03-01" max="2031-01-01" />
+
+                <label for="hours-total" id="leave-label">Hours per Day:</label>
+                <input type="number" id="hours-total" name="hours-total" min="0.0" max="8.0">
+            
+                <div id="btn-group" style="width:100%">
+                    <button id="cancel-btn">Cancel</button>
+                    <button id="submit-btn">Submit</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="delete-leave-entry">
+            <h2 style="display: inline;">Delete Leave Record</h2>
+            <p id="leave-text">Temp</p>
+
+            <div id="btn-group" style="width:100%">
+                <button id="cancel-btn">Cancel</button>
+                <button id="delete-btn">Delete</button>
+            </div>
+        </div>
+
+        <div id="backdrop"></div>
+
+
+        <!-- SCRIPTS -->
+        <script src="./scripts/scripts.js"></script>
+    </body>
+</html>
