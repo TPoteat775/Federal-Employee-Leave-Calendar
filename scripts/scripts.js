@@ -1,22 +1,31 @@
 let currentMonth = 0;
 let clicked = null;
-let events = localStorage.getItem('events') ? JSON.parse(localStorage.getItem('events')) : [];
+let records = localStorage.getItem('records') ? JSON.parse(localStorage.getItem('records')) : [];
 
 const calendar = document.getElementById('calendar');
 const newLeaveEntry = document.getElementById('create-leave-entry');
 const deleteLeaveEntry = document.getElementById('delete-leave-entry')
 const leaveText = document.getElementById('leave-text');
 const backdrop = document.getElementById('backdrop');
+const hoursPerEntry = document.getElementById('hours-total');
+
+const annualLeave = document.getElementById('annual-leave');
+const sickLeave = document.getElementById('sick-leave');
+const creditHrs = document.getElementById('credit-hrs');
+const compHrs = document.getElementById('comp-hrs');
+
+const minDate = document.getElementById('min-date');
+const maxDate = document.getElementById('max-date');
 
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 function createLeaveEntry(date){
   clicked = date;
 
-  const leaveEntry = events.find(e => e.date === clicked);
+  const leaveEntry = records.find(e => e.date === clicked);
 
   if (leaveEntry) {
-    document.getElementById('leave-text').innerText = leaveEntry.title;
+    //document.getElementById('leave-text').innerText = leaveEntry.title;
     deleteLeaveEntry.style.display = 'block';
   } else {
     newLeaveEntry.style.display = 'block';
@@ -35,7 +44,6 @@ function load() {
   const month = dt.getMonth();
   const year = dt.getFullYear();
   
-
   const firstDayOfMonth = new Date(year, month, 1);
 
   const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -57,6 +65,22 @@ function load() {
     day: 'numeric',
   });
 
+  let tempDate = "";
+
+  if(month+1 < 10 && day < 10){
+    tempDate = year + '-0' + month + '-0' + day;
+  } else if(month+1 < 10 && day >= 10) {
+    tempDate = year + '-0' + month + '-' + day;
+  } else if(month+1 >= 10 && day < 10) {
+    tempDate = year + '-' + month + '-0' + day;
+  }else{
+    tempDate = year + '-' + month + '-' + day;
+  }
+
+  minDate.setAttribute('min', tempDate);
+  maxDate.setAttribute('min', tempDate);
+
+
   const endPaddingDays = weekdays.length - (weekdays.indexOf(endDateString.split(', ')[0]) + 1);
 
   const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
@@ -73,11 +97,9 @@ function load() {
   for(let i=0; i<7; i++) {
     const weekDaySquare = document.createElement('div');
     weekDaySquare.classList.add('daysOfTheWeek');
-
-
+    
     weekDaySquare.innerText = weekdays[i];
     calendar.appendChild(weekDaySquare);
-
   }
 
   for(let i = 1; i <= paddingDays + daysInMonth + endPaddingDays; i++) {
@@ -90,24 +112,23 @@ function load() {
 
     if (i > paddingDays && i - paddingDays <= daysInMonth) {
       daySquare.innerText = i - paddingDays;
-      const eventForDay = events.find(e => e.date === dayString);
+      const leaveEntry = records.find(e => e.date === dayString);
 
       if (i - paddingDays === day && currentMonth === 0) {
         daySquare.id = 'currentDay';
       }
 
-      if (eventForDay) {
-        const eventDiv = document.createElement('div');
-        eventDiv.classList.add('event');
-        eventDiv.innerText = eventForDay.title;
-        daySquare.appendChild(eventDiv);
+      if (leaveEntry) {
+        const leaveDiv = document.createElement('div');
+        leaveDiv.classList.add('event');
+        leaveDiv.innerText = leaveEntry.title;
+        daySquare.appendChild(leaveDiv);
       }
 
       daySquare.addEventListener('click', () => createLeaveEntry(dayString));
     } else {
       daySquare.classList.add('padding');
     }
-
     calendar.appendChild(daySquare);    
   }
 }
@@ -123,25 +144,35 @@ function cancelEntry(){
 }
 
 function submitLeave(){
-  if (leaveText.value) {
-    leaveText.classList.remove('error');
+  const totalHrs = document.getElementById('total-hrs')
 
-    events.push({
+  console.log(totalHrs.value);
+
+  if (totalHrs.value) {
+    totalHrs.classList.remove('error');
+
+    records.push({
       date: clicked,
       title: leaveText.value,
     });
 
-    localStorage.setItem('events', JSON.stringify(events));
-    closeModal();
+    //"date + " "
+
+    localStorage.setItem('records', JSON.stringify(records));
+    cancelEntry();
   } else {
-    leaveText.classList.add('error');
+    totalHrs.classList.add('error');
   }
 }
 
+function validateLeave(){
+
+}
+
 function deleteLeave(){
-  events = events.filter(e => e.date !== clicked);
-  localStorage.setItem('events', JSON.stringify(events));
-  closeModal();
+  records = records.filter(e => e.date !== clicked);
+  localStorage.setItem('records', JSON.stringify(records));
+  cancelEntry();
 }
 
 function initButtons() {
