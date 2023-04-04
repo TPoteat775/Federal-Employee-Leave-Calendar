@@ -1,4 +1,4 @@
-/* Colors: #F3EBE9 Chamoisee, #B4876A Raisin Black, #212227 Isabelline*/
+/* Colors: #F3EBE9 Chamoisee, #212227 Raisin Black, #B4876A Isabelline*/
 
 #heading {
     width: 100%;
@@ -43,15 +43,6 @@ body {
     justify-content: space-between;
 }
  
-  /*
-  padding-top: 40px;
-  color:#212227;
-  font-family:'Georgia', Tahoma, Geneva, Verdana, serif;
-  font-size: 26px;
-  display: flex;
-  justify-content: center;
-  */
-  
 .padding {
     cursor: default !important;
     background-color: #FFFCFF !important;
@@ -62,10 +53,6 @@ body {
     background-color: #B4876A;
 }
     
-#container {
-  
-}
-
 #calendar {
     width: 1000px;
     margin: auto;
@@ -106,7 +93,7 @@ body {
 .event {
     font-size: 10px;
     padding: 3px;
-    background-color: #58bae4;
+    background-color: #9d36af;
     color: white;
     border-radius: 5px;
     max-height: 55px;
@@ -132,7 +119,6 @@ body {
 input {
     margin-top: 5px;
     justify-content: center ;
-
 }
 
 #btn-group {
@@ -189,3 +175,7 @@ select {
     position: absolute;
     background-color: rgba(0,0,0,0.8);
 }
+
+#total-hrs.error {
+    border: 2px solid red;
+  }
