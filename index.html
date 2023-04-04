@@ -48,11 +48,11 @@
                 </select>
 
                 <label for="leave-type" id="leave-label">Duration:</label>
-                <input type="date" id="date" aria-describedby="date-format" min="2021-03-01" max="2031-01-01" /> -
-                <input type="date" id="date" aria-describedby="date-format" min="2021-03-01" max="2031-01-01" />
+                <input type="date" id="min-date" aria-describedby="date-format" max="2031-01-01" /> -
+                <input type="date" id="max-date" aria-describedby="date-format" min="2021-03-01" max="2031-01-01" />
 
-                <label for="hours-total" id="leave-label">Hours per Day:</label>
-                <input type="number" id="hours-total" name="hours-total" min="0.0" max="8.0">
+                <label for="total-hrs" id="leave-label">Hours per Day:</label>
+                <input type="number" id="total-hrs" name="total-hrs" min="0.0" max="8.0">
             
                 <div id="btn-group" style="width:100%">
                     <button id="cancel-btn">Cancel</button>
@@ -63,7 +63,7 @@
 
         <div id="delete-leave-entry">
             <h2 style="display: inline;">Delete Leave Record</h2>
-            <p id="leave-text">Temp</p>
+            <p id="leave-text"></p>
 
             <div id="btn-group" style="width:100%">
                 <button id="cancel-btn">Cancel</button>
