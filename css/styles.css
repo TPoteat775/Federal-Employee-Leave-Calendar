@@ -1,9 +1,16 @@
-/* Colors: #F3EBE9 Chamoisee, #212227 Raisin Black, #B4876A Isabelline*/
+/* Colors: #B4876A Chamoisee, #212227 Raisin Black, #F3EBE9 Isabelline*/
 
-#heading {
+header {
     width: 100%;
-    height: 30px;
     justify-content: center;
+    text-align: center;
+    background-color: #212227;
+    color: #B4876A;
+    position:fixed;
+    top: 0;
+    right: 0;
+    height: 60px;
+    padding-top: 10px;
 }
   
 #h2-title  {
@@ -16,10 +23,6 @@ input {
     padding-left: .5px;
 }
   
-#main {
-    padding-top: 30px;
-}
-  
 #week-container {
     display: flex;
     padding-left: 10px;
@@ -29,6 +32,7 @@ input {
   
 body {
     display: flex;
+    min-width: 1100px;
     margin-top: 50px;
     justify-content: center;
     background-color: #F3EBE9;
@@ -60,6 +64,10 @@ body {
     flex-wrap: wrap;
 }
     
+#container {
+    justify-content: center;
+}
+
 .day {
     width: 140px;
     padding: 10px;
@@ -176,6 +184,6 @@ select {
     background-color: rgba(0,0,0,0.8);
 }
 
-#total-hrs.error {
+#hrs-per-day.error, #min-date.error, #max-date.error {
     border: 2px solid red;
   }
