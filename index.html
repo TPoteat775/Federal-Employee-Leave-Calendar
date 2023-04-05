@@ -10,49 +10,52 @@
     </head>
     
     <body>
-        <div id="container">
+        <div id="main-content">
             <header>
                 <div id="heading">
                     <h2 style="display: inline;" id="h2-title">Federal Leave Calendar</h2>
                         <label for="annual-leave">Annual Leave:</label>
                         <input type="number" id="annual-leave" name="annual-leave" min="0" max="999">
-    
+
                         <label for="sick-leave">Sick Leave:</label>
                         <input type="number" id="sick-leave" name="sick-leave" min="0" max="999">
-    
+
                         <label for="credit-hrs">Credit Hours:</label>
                         <input type="number" id="credit-hrs" name="credit-hrs" min="0" max="999">
-    
+
                         <label for="comp-hrs">Comp Hours:</label>
                         <input type="number" id="comp-hrs" name="comp-hrs" min="0" max="999">
                 </div>
             </header>
 
-            <div id="header2">
-                <button id="backButton">&#10094;</button>
-                <div id="monthDisplay"></div>
-                <button id="nextButton">&#10095;</button>
+            <div id="container">
+                <div id="header2">
+                    <button id="backButton">&#10094;</button>
+                    <div id="monthDisplay"></div>
+                    <button id="nextButton">&#10095;</button>
+                </div>
+                <div id="calendar"></div>
             </div>
-            <div id="calendar"></div>
+            <div id="backdrop"></div>
         </div>
-
+        
         <div id="create-leave-entry">
             <h2 style="display: inline;">New Leave Record</h2>
             <div id="leave-entry">
                 <label for="leave-type" id="leave-label">Leave Type:</label>
                 <select id="leave-type">
-                    <option value="sick">Sick</option>
-                    <option value="sick">Annual</option>
-                    <option value="sick">Credit Hours</option>
-                    <option value="sick">Comp Hours</option>
+                    <option value="Sick">Sick</option>
+                    <option value="Annual">Annual</option>
+                    <option value="Credit">Credit Hours</option>
+                    <option value="Comp">Comp Hours</option>
                 </select>
 
                 <label for="leave-type" id="leave-label">Duration:</label>
-                <input type="date" id="min-date" aria-describedby="date-format" max="2031-01-01" /> -
-                <input type="date" id="max-date" aria-describedby="date-format" min="2021-03-01" max="2031-01-01" />
+                <input type="date" id="min-date" aria-describedby="date-format" min="2021-03-01" max="2031-01-01" required/> -
+                <input type="date" id="max-date" aria-describedby="date-format" min="2021-03-01" max="2031-01-01" required/>
 
-                <label for="total-hrs" id="leave-label">Hours per Day:</label>
-                <input type="number" id="total-hrs" name="total-hrs" min="0.0" max="8.0">
+                <label for="hrs-per-day" id="leave-label">Hours per Day:</label>
+                <input type="number" id="hrs-per-day" name="hrs-per-day" min="0.0" max="8.0">
             
                 <div id="btn-group" style="width:100%">
                     <button id="cancel-btn">Cancel</button>
@@ -70,8 +73,6 @@
                 <button id="delete-btn">Delete</button>
             </div>
         </div>
-
-        <div id="backdrop"></div>
 
 
         <!-- SCRIPTS -->
