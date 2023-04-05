@@ -1,6 +1,3 @@
-//FIND DAYS BETWEEN MINDATE AND MAX DATE
-//DISPLAY ALL EVENTS FOR LEAVE and PERFORM CALCULATION
-
 let currentMonth = 0;
 let clicked = null;
 let records = localStorage.getItem('records') ? JSON.parse(localStorage.getItem('records')) : [];
@@ -20,12 +17,15 @@ const compHrs = document.getElementById('comp-hrs');
 let minDate = document.getElementById('min-date');
 let maxDate = document.getElementById('max-date');
 
+let totalNumOfHrs = 0;
+
 const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 function createLeaveEntry(date){
   let splitDate = formatDate(date);
   minDate.setAttribute('value', splitDate);
   maxDate.setAttribute('value', splitDate);
+
   clicked = date;
 
   const leaveEntry = records.find(e => e.date === clicked);
@@ -40,6 +40,7 @@ function createLeaveEntry(date){
 }
 
 function formatDate(date){
+  //console.log(date);
   let splitDate = date.split('/');
   let tempDate = "";
 
@@ -57,6 +58,15 @@ function formatDate(date){
     tempDate = splitDate[2] + '-' + splitDate[0] + '-' + splitDate[1];
   } 
   return tempDate
+}
+
+function reformatDate(date){
+  let splitDate = date.split('-');
+  //splitDate[0] is year
+  //splitDate[1] is month
+  //splitDate[2] is day
+  
+  return (splitDate[1] + "/" + splitDate[2] + "/" + splitDate[0]);
 }
 
 function load() {
@@ -159,8 +169,8 @@ function cancelEntry(){
 function submitLeave(){
   const hrsPerDay = document.getElementById('hrs-per-day')
   const leaveType = document.getElementById('leave-type');
-  let days = 1;
   let flag = false;
+  let numOfDays = 1;
 
   minDate = document.getElementById('min-date');
   maxDate = document.getElementById('max-date');
@@ -172,22 +182,29 @@ function submitLeave(){
     maxDate.classList.add('error');
     flag = false;
   } else{
+    console.log("MinDate.value: " + reformatDate(minDate.value));
+    let date1 = new Date(reformatDate(minDate.value));
+    let date2 = new Date(reformatDate(maxDate.value));
     minDate.classList.remove('error');
     maxDate.classList.remove('error');
-    flag = true;
-    //days = daysForRecord(minDate, maxDate);
-  }
 
-  if (flag && hrsPerDay.value != 0) {
+    flag = true;
+
+    if(date1 != date2) {
+      numOfDays = (date2.getTime()-date1.getTime()) / (1000 * 3600 * 24);
+    }
+  }
+  numOfDays += 1;  
+  
+  if(!(hrsPerDay.value)){
+    hrsPerDay.classList.add('error');
+  } else if (flag && validateEntry(hrsPerDay.value, leaveType.value, numOfDays)) {
     hrsPerDay.classList.remove('error');
 
     records.push({
       date: clicked,
-      title: leaveType.value + ' - ',
+      title: leaveType.value + ' - ' + totalNumOfHrs,
     });
-
-    //"date + " "
-
     localStorage.setItem('records', JSON.stringify(records));
     cancelEntry();
   } else {
@@ -195,38 +212,55 @@ function submitLeave(){
   }
 }
 
-function validateEntry(hours, leaveType){
-  let tempNum = 0;
+function validateEntry(hours, leaveType, days){  
+  let totalHrs = hours * days;
+  totalNumOfHrs = totalHrs;
+
+  //console.log("TotalHRS: " + totalHrs);
+  //console.log("sickLeave.value: " + sickLeave.value);
 
   if(hours > 8 || hours < 0) {
     alert("The hours value must be between 0-8");
+    return false;
   }
 
-  if(leaveType=="sick"){
-    tempNum = 
-    alert('Error. Not enough hours in Sick Leave.')
-
-  } else if(leaveType=="annual"){
-
-  } else if(leaveType=="credit"){
-
-  }else if(leaveType=="comp"){
-
-  }else{
-    alert('Invalid entry. Please try again.');
+  if(leaveType=="Annual"){
+    if(!(annualLeave.value) || annualLeave.value < totalHrs ) {
+      alert('Error. Not enough hours in Annual Leave.');
+    }else {
+      annualLeave.setAttribute('value', (annualLeave.value-totalHrs));
+      return true;
+    }
   }
 
-}
+  if(leaveType=="Sick"){
+    if(!(sickLeave.value) || sickLeave.value < totalHrs ) {
+      alert('Error. Not enough hours in Sick Leave.');
+    }else {
+      sickLeave.setAttribute('value', (sickLeave.value-totalHrs));
+      return true;
+    }
+  }
 
-function daysForRecord(minDate, maxDate){
+  if(leaveType=="Credit"){
+    if(!(creditHrs.value) || creditHrs.value < totalHrs ) {
+      alert('Error. Not enough hours in Credit Hrs.');
+    }else {
+      creditHrs.setAttribute('value', (creditHrs.value-totalHrs));
+      return true;
+    }
+  }
 
-  //splitDate1[0] is year
-  //splitDate1[1] is month
-  //splitDate1[2] is day
+  if(leaveType=="Comp"){
+    if(!(compHrs.value) || compHrs.value < totalHrs ) {
+      alert('Error. Not enough hours in Comp Hrs.');
+    }else {
+      compHrs.setAttribute('value', (compHrs.value-totalHrs));
+      return true;
+    }
+  }
+  return false;
   
-  let splitDate1 = minDate.value.split('-');
-  let splitDate2 = maxDate.value.split('-');
-
 }
 
 function deleteLeave(){
